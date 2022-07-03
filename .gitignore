@@ -8,6 +8,7 @@ datasets/
 # Node artifact files
 node_modules/
 dist/
+venv/
 .env/
 .vs/
 .vscode/
