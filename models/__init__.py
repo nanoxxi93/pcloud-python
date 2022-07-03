@@ -46,6 +46,7 @@ class File(BaseModel):
     renameifexists: Optional[int] = None
     mtime: Optional[int] = None
     ctime: Optional[int] = None
+    code: Optional[str] = None
 
 class FileUpdate(File):
     tofolderid: Optional[int] = None

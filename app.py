@@ -50,7 +50,7 @@ async def folder_create_controller(request: models.FolderCreate):
 @app.post('/folder/list')
 async def folder_list_controller(request: models.Folder):
     url = 'listfolder'
-    path = clean_path(path)
+    request.path = clean_path(request.path)
     if (request.folderid is None and request.path is None):
         request.path = '/'
     pbody = {k: v for k, v in dict(request).items() if v is not None}
@@ -141,6 +141,22 @@ async def file_copy_controller(request: models.FileUpdate):
 @app.post('/file/delete')
 async def file_delete_controller(request: models.File):
     url = 'deletefile'
+    request.path = clean_path(request.path)
+    pbody = {k: v for k, v in dict(request).items() if v is not None}
+    response = requests.get(f'{pcloud_url}/{url}?{urllib.parse.urlencode(pbody)}')
+    return response.json()
+
+@app.post('/publink/getfile')
+async def file_delete_controller(request: models.File):
+    url = 'getfilepublink'
+    request.path = clean_path(request.path)
+    pbody = {k: v for k, v in dict(request).items() if v is not None}
+    response = requests.get(f'{pcloud_url}/{url}?{urllib.parse.urlencode(pbody)}')
+    return response.json()
+
+@app.post('/publink/download')
+async def file_delete_controller(request: models.File):
+    url = 'getpublinkdownload'
     request.path = clean_path(request.path)
     pbody = {k: v for k, v in dict(request).items() if v is not None}
     response = requests.get(f'{pcloud_url}/{url}?{urllib.parse.urlencode(pbody)}')
